@@ -1,0 +1,78 @@
+import React from 'react';
+import { View, Text, FlatList, Dimensions, StyleSheet, Pressable, } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { SetUser } from '../components/redux/action';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const { width, height } = Dimensions.get('screen');
+
+const MasterScreen = ({ navigation }) => {
+  const users = useSelector(state => state.users);
+  const dispatch = useDispatch();
+
+  const handleSelectUser = (user) => {
+    dispatch(SetUser(user));
+    navigation.navigate('ChatScreen', { user });
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style = {{position: 'absolute', top: 0, alignItems: 'center', justifyContent: 'center', width: width, backgroundColor: '#000', height: height * 0.075}}>
+        <Text style = {{fontSize: 24, fontWeight: 'bold', color: '#fff'}}>Available Users</Text>
+      </View>
+      <Text style={styles.header}>Select a user to get started</Text>
+      <View style={styles.innerContainer}>
+        <FlatList
+          data={users}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => handleSelectUser(item)}
+              style={styles.userBox}>
+              <Text style={styles.user}>{item.name}</Text>
+            </Pressable>
+          )}
+        />
+      </View>
+    </View>
+  );
+};
+
+export default MasterScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#8e44ad',
+  },
+  innerContainer: {
+    gap: 10,
+    backgroundColor: '#fff',
+    height: height * 0.5,
+    width: width * 0.85,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000',
+    padding: 8,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#fff',
+  },
+  userBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: height * 0.06,
+    borderWidth: 1,
+    borderColor: '#bbb',
+    borderRadius: 6,
+  },
+  user: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
