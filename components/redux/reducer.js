@@ -2,6 +2,8 @@ const initialState = {
   users: [
     { id: '1', name: 'Rohaan' },
     { id: '2', name: 'RohaanAwan' },
+    { id: '3', name: 'Rohaan99'},
+    { id: '4', name: 'Rohaan9'}
   ],
   currentUser: null,
   chats: {},

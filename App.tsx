@@ -10,8 +10,8 @@ import { store, persistor } from './components/redux/store';
 import StartScreen from './screens/StartScreen';
 import MasterScreen from './screens/MasterScreen';
 import ChatScreen from './screens/ChatScreen';
-// import Login from './screens/Login';
-// import Signup from './screens/Signup';
+import Login from './screens/Login';
+import Signup from './screens/Signup';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +24,8 @@ const App = () => {
             <Stack.Screen name="StartScreen" component={StartScreen} />
             <Stack.Screen name="MasterScreen" component={MasterScreen} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
-            {/* <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={Signup} /> */}
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={Signup} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

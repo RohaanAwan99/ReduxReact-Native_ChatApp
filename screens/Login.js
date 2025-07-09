@@ -11,13 +11,13 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
 
   const handleLogin = () => {
-    // const foundUser = users.find(user => user.name === username.trim());
-    // if (foundUser) {
-    //   dispatch(SetUser(foundUser));
-    //   navigation.navigate('MasterScreen');
-    // } else {
-    //   alert('User not found. Please sign up first.');
-    // }
+    const foundUser = users.find(user => user.name === username.trim());
+    if (foundUser) {
+      dispatch(SetUser(foundUser));
+      navigation.navigate('MasterScreen');
+    } else {
+      alert('User not found. Please sign up first.');
+    }
   };
 
   return (
