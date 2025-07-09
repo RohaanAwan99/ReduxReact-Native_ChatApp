@@ -14,20 +14,24 @@ const ChatReducer = (state = initialState, action) => {
         ...state,
         currentUser: action.payload,
       };
-
     case 'ADDMESSAGE': {
-      const { id, text } = action.payload;
-      const existing = state.chats[id] || [];
-      const message = { text, timestamp: Date.now() };
-
-      return {
-        ...state,
-        chats: {
-          ...state.chats,
-          [id]: [...existing, message],
-        },
+      const { chatId, text, senderId } = action.payload;
+      const existing = state.chats[chatId] || [];
+      const newMessage = {
+        text,
+        senderId,
+        timestamp: Date.now(),
       };
+      return {...state,chats: {
+          ...state.chats,
+          [chatId]: [...existing, newMessage],
+        },};
     }
+    case 'ADDUSER':
+    return {
+      ...state,
+      users: [...state.users, action.payload],
+    };
 
     default:
       return state;

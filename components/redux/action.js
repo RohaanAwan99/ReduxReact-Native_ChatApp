@@ -3,10 +3,12 @@ export const SetUser = (user) => ({
   payload: user,
 });
 
-export const AddMessage = (id, text) => ({
+export const AddMessage = (chatId, text, senderId) => ({
   type: 'ADDMESSAGE',
-  payload: {
-    id,
-    text,
-  },
+  payload: {chatId, text, senderId,},
+});
+
+export const AddUser = (user) => ({
+  type: "ADDUSER",
+  payload: user
 });

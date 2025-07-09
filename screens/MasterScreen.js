@@ -1,24 +1,25 @@
 import React from 'react';
-import { View, Text, FlatList, Dimensions, StyleSheet, Pressable, } from 'react-native';
+import { View, Text, FlatList, Dimensions, StyleSheet, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetUser } from '../components/redux/action';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('screen');
 
 const MasterScreen = ({ navigation }) => {
   const users = useSelector(state => state.users);
+  const currentUser = useSelector(state => state.currentUser);
   const dispatch = useDispatch();
 
   const handleSelectUser = (user) => {
-    dispatch(SetUser(user));
-    navigation.navigate('ChatScreen', { user });
+    if (!currentUser || user.id !== currentUser.id) {
+      navigation.navigate('ChatScreen', { user });
+    }
   };
 
   return (
     <View style={styles.container}>
-      <View style = {{position: 'absolute', top: 0, alignItems: 'center', justifyContent: 'center', width: width, backgroundColor: '#000', height: height * 0.075}}>
-        <Text style = {{fontSize: 24, fontWeight: 'bold', color: '#fff'}}>Available Users</Text>
+      <View style={styles.headerBox}>
+        <Text style={styles.headerText}>Available Users</Text>
       </View>
       <Text style={styles.header}>Select a user to get started</Text>
       <View style={styles.innerContainer}>
@@ -26,9 +27,7 @@ const MasterScreen = ({ navigation }) => {
           data={users}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Pressable
-              onPress={() => handleSelectUser(item)}
-              style={styles.userBox}>
+            <Pressable onPress={() => handleSelectUser(item)} style={styles.userBox}>
               <Text style={styles.user}>{item.name}</Text>
             </Pressable>
           )}
@@ -46,6 +45,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#8e44ad',
+  },
+  headerBox: {
+    position: 'absolute',
+    top: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width,
+    backgroundColor: '#000',
+    height: height * 0.075,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   innerContainer: {
     gap: 10,
