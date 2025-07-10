@@ -15,7 +15,7 @@ const Login = ({ navigation }) => {
     const foundUser = users.find(user => user.name === username.trim() && user.password === password.trim());
     if (foundUser) {
       dispatch(SetUser(foundUser));
-      navigation.navigate('MasterScreen');
+      //navigation.navigate('MasterScreen');
     } else {
       alert('User not found. Please sign up first.');
     }

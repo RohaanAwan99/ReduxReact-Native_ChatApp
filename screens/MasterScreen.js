@@ -28,7 +28,6 @@ const MasterScreen = ({ navigation }) => {
 
   const handleLogout = () => {
     dispatch(LogoutCurrentUser());
-    navigation.navigate('StartScreen');
   }
 
   return (
