@@ -12,3 +12,8 @@ export const AddUser = (user) => ({
   type: "ADDUSER",
   payload: user
 });
+
+export const LogoutCurrentUser= () => ({
+  type: "LOGOUT",
+  payload: {id: '0', name: 'MasterUser'},
+})

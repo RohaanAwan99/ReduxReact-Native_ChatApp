@@ -1,13 +1,27 @@
 const initialState = {
   users: [
-    { id: '1', name: 'Rohaan' },
-    { id: '2', name: 'RohaanAwan' },
-    { id: '3', name: 'Rohaan99'},
-    { id: '4', name: 'Rohaan9'}
+    { id: '0', name: 'MasterUser', password: 'password'},
+    { id: '1', name: 'Rohaan', password: 'password' },
+    { id: '2', name: 'RohaanAwan', password: 'password' },
+    { id: '3', name: 'Rohaan99', password: 'password'},
+    { id: '4', name: 'Rohaan9', password: 'password'}
   ],
   currentUser: null,
   chats: {},
 };
+
+function CheckExistingUsers(userToAdd, userList)
+{
+  const { id, name } = userToAdd;
+
+  for (let i = 0; i < userList.length; i++) {
+    if (userList[i].name === name || userList[i].id === id) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 const ChatReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,11 +44,21 @@ const ChatReducer = (state = initialState, action) => {
         },};
     }
     case 'ADDUSER':
-    return {
-      ...state,
-      users: [...state.users, action.payload],
-    };
+      if (!CheckExistingUsers(action.payload, state.users)) {
+        alert("Please use a unique username and try again.")
+        return state;
+      }
+      alert("Sign up successful. Please proceed to login page.")
+      return {
+        ...state,
+        users: [...state.users, action.payload],
+      };
 
+    case "LOGOUT":
+      return {
+        ...state, 
+        currentUser: action.payload,
+      }
     default:
       return state;
   }

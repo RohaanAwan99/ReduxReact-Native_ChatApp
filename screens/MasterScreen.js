@@ -1,9 +1,19 @@
 import React from 'react';
 import { View, Text, FlatList, Dimensions, StyleSheet, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetUser } from '../components/redux/action';
+import { LogoutCurrentUser, SetUser } from '../components/redux/action';
 
 const { width, height } = Dimensions.get('screen');
+
+export const LogoutButton = ({handleLogout}) => {
+  return (
+    <View style = {{position: 'absolute', bottom: 10, right: 10,}}>
+      <Pressable style = {{backgroundColor: '#000', height: 30, width: 90, alignItems: 'center', justifyContent: 'center',borderRadius: 8,}} onPress = {() => handleLogout()}>
+        <Text style = {{color: '#fff', fontSize: 16, fontWeight: 'bold',}}>Logout</Text>
+      </Pressable>
+    </View>
+  );
+}
 
 const MasterScreen = ({ navigation }) => {
   const users = useSelector(state => state.users);
@@ -15,6 +25,11 @@ const MasterScreen = ({ navigation }) => {
       navigation.navigate('ChatScreen', { user });
     }
   };
+
+  const handleLogout = () => {
+    dispatch(LogoutCurrentUser());
+    navigation.navigate('StartScreen');
+  }
 
   return (
     <View style={styles.container}>
@@ -33,6 +48,7 @@ const MasterScreen = ({ navigation }) => {
           )}
         />
       </View>
+      <LogoutButton handleLogout={handleLogout} />
     </View>
   );
 };

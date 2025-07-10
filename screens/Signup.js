@@ -8,11 +8,12 @@ const {width, height} = Dimensions.get('screen');
 const Signup = ({navigation}) => {
     const dispatch = useDispatch();
     const [usernameinput, setusernameInput] = useState('');
+    const [passwordinput, setpasswordInput] = useState('');
     const handleSignUp =() => {
         if (usernameinput.trim()) {
-            const user = { id: Date.now().toString(), name: usernameinput.trim() };
-            dispatch(AddUser({ id: user.id, name: user.name }));
-            navigation.navigate('Login');
+            const user = { id: Date.now().toString(), name: usernameinput.trim(), password: passwordinput.trim() };
+            dispatch(AddUser({ id: user.id, name: user.name, password: user.password }));
+            //navigation.navigate('Login');
         }
     }
 
@@ -26,6 +27,10 @@ const Signup = ({navigation}) => {
                 placeholder='Enter your username'
                 value = {usernameinput}
                 onChangeText={setusernameInput}/>
+                <TextInput style = {styles.textinput} 
+                placeholder='Enter your password'
+                value = {passwordinput}
+                onChangeText={setpasswordInput}/>
                 <Pressable onPress={handleSignUp} style = {styles.button}>
                     <Text style = {{color: '#fff'}}>Sign up</Text>
                 </Pressable>

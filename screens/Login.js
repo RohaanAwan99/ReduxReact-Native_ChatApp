@@ -9,9 +9,10 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    const foundUser = users.find(user => user.name === username.trim());
+    const foundUser = users.find(user => user.name === username.trim() && user.password === password.trim());
     if (foundUser) {
       dispatch(SetUser(foundUser));
       navigation.navigate('MasterScreen');
@@ -27,6 +28,12 @@ const Login = ({ navigation }) => {
         placeholder="Enter username"
         value={username}
         onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter password"
+        value={password}
+        onChangeText={setPassword}
       />
       <Pressable onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Login</Text>
