@@ -21,7 +21,7 @@ const MasterScreen = ({ navigation }) => {
       <View style={styles.headerBox}>
         <Text style={styles.headerText}>Available Users</Text>
       </View>
-      <Text style={styles.header}>Select a user to get started</Text>
+      <Text style={styles.header}>    Logged in as {<Text style = {{color: '#ffc400'}}>{currentUser.name}</Text>}{"\n"}Select a user to get started</Text>
       <View style={styles.innerContainer}>
         <FlatList
           data={users}

@@ -49,8 +49,7 @@ const ChatScreen = ({ route }) => {
           style={styles.textInput}
           placeholder="Type a message..."
           value={input}
-          onChangeText={setInput}
-        />
+          onChangeText={setInput}/>
         <Pressable style={styles.sendButton} onPress={sendMessage}>
           <Text style={styles.sendText}>Send</Text>
         </Pressable>
